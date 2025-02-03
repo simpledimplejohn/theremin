@@ -23,12 +23,15 @@ Build a theremin for playing at psyche night.
 ### Raspberry Pi
 1. Pi Debien with imiger
 2. pure data
+3. -`sudo apt update`
   - `sudo apt install puredata`
 3. fluidsynth
   - `sudo apt install fluidsynth fluid-soundfont-gm`
 4. Jack (performance)
   - `sudo apt install jackd2 qjackctl`
 5. MIDI support
+  - `sudo apt install python3-venv`
+  - `python3 -m venv ~/synth_env`
   - `source ~/synth_env/bin/activate`
   - `pip install python-rtmidi`
   - `source ~/synth_env/bin/activate`
