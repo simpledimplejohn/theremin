@@ -36,3 +36,5 @@ Build a theremin for playing at psyche night.
   - `pip install python-rtmidi`
   - `source ~/synth_env/bin/activate`
   - it had to be installed with an virtual environment
+6. Arduino IDE
+  - download .tar.xy file
