@@ -1,23 +1,10 @@
 # Theremin Project
 Build a theremin for playing at psyche night.  
-#### Requirements:
-- Theremin function using coper
-- 
-
-## Next Step:
-
 
 ## Materials
-- Arduino Uno
+- Arduino Uno 
 - Raspberry pi4
-- dial potentiometers
-- LEDs
-- cap touch
-
-## Tasks
-1. Capacitive touch to LED bar
-2. Add potentiometer for intesity
-3. add pizo buzer
+  - Debian 
 
 ## Instalation
 ### Raspberry Pi
@@ -31,10 +18,31 @@ Build a theremin for playing at psyche night.
   - `sudo apt install jackd2 qjackctl`
 5. MIDI support
   - `sudo apt install python3-venv`
-  - `python3 -m venv ~/synth_env`
-  - `source ~/synth_env/bin/activate`
+  - `python3 -m venv ~/theremin_env`
+  - `source ~/theremin_env/bin/activate`
   - `pip install python-rtmidi`
-  - `source ~/synth_env/bin/activate`
   - it had to be installed with an virtual environment
 6. Arduino IDE
   - download .tar.xy file
+7. Install Sound File:
+wget -O /home/pi/theremin.sf2 https://musical-artifacts.com/artifacts/32/Synths.sf2
+8. pyserial fluidsynth:
+  - `source ~/synth_env/bin/activate`
+  - `pip install pyserial fluidsynth`
+  - must run this everytime you start the pi
+9. VS Code
+  - `sudo apt install code -y`
+
+## RUNNING:
+1. activate virtual environments needed:
+  - source ~/theremin_env/bin/activate
+
+
+
+
+
+
+
+
+
+
