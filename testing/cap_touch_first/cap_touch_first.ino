@@ -1,18 +1,28 @@
 #include <CapacitiveSensor.h>
 
-// Define a single capacitive sensor with a 10M resistor between pin 4 (send) and pin 2 (receive)
+// Define capacitive sensor for pitch (send: pin 4, receive: pin 2)
 CapacitiveSensor cs_4_2 = CapacitiveSensor(4, 2);
 
+const int volumePin = A0;  // Potentiometer for volume
+
 void setup() {
-    
-    Serial.begin(9600); // Start serial communication
+    Serial.begin(9600);  // Start serial communication
 }
 
 void loop() {
-    long total = cs_4_2.capacitiveSensor(30); // Read capacitive sensor value
+    long pitchValue = cs_4_2.capacitiveSensor(30); // Read pitch sensor
+    int volumeValue = analogRead(volumePin);       // Read potentiometer (0-1023)
 
-    Serial.print("Sensor Value: ");
-    Serial.println(total); // Print the sensor value to serial output
+    // Normalize pitch (adjusting sensitivity)
+    pitchValue = constrain(pitchValue, 0, 1000);  // Cap the sensor range
 
-    delay(50); // Small delay to make output readable
+    // Normalize volume (scale 0-1023 to 0-127 for MIDI velocity)
+    int mappedVolume = map(volumeValue, 0, 1023, 0, 127);
+
+    // Send pitch and volume as CSV
+    Serial.print(pitchValue);
+    Serial.print(",");
+    Serial.println(mappedVolume);
+
+    delay(50); // Small delay for stability
 }
