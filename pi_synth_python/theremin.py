@@ -1,46 +1,21 @@
-import serial
-import fluidsynth
 import time
+import fluidsynth
 
-# Initialize FluidSynth
-fs = fluidsynth.Synth()
+# 1. Initialize FluidSynth and specify the driver.
+#    (You can leave the driver default if ALSA is the default on your Pi)
+fs = fluidsynth.Synth(driver="alsa")
 fs.start()
-sfid = fs.sfload("/home/pi/theremin.sf2")  # Load the SoundFont
+
+# 2. Load your SoundFont file (adjust the path if needed)
+soundfont_path = "/home/pi/theremin.sf2"
+sfid = fs.sfload(soundfont_path)
 fs.program_select(0, sfid, 0, 0)
 
-# Connect to Arduino (Adjust the port if needed, e.g., /dev/ttyUSB0 or /dev/ttyACM0)
-ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
-time.sleep(2)  # Wait for Arduino to initialize
+# 3. Play a Middle C (MIDI note 60) at full velocity (127)
+fs.noteon(0, 60, 127)
+time.sleep(2)
 
-previous_note = None  # Store last played note
+# 4. Turn the note off
+fs.noteoff(0, 60)
 
-def map_value(value, in_min, in_max, out_min, out_max):
-    """Map a value from one range to another"""
-    return int(out_min + (float(value - in_min) / float(in_max - in_min) * (out_max - out_min)))
-
-while True:
-    try:
-        line = ser.readline().decode().strip()  # Read serial data
-        if line:
-            pitch, volume = map(int, line.split(","))
-
-            # Convert pitch sensor to a MIDI note (C2 to C7 range: 36-96)
-            midi_note = map_value(pitch, 0, 1000, 36, 96)
-
-            # Ensure volume is in the valid MIDI range (0-127)
-            velocity = max(0, min(volume, 127))
-
-            # Stop the previous note if different
-            if previous_note is not None and previous_note != midi_note:
-                fs.noteoff(0, previous_note)
-
-            # Play the new note
-            fs.noteon(0, midi_note, velocity)
-            previous_note = midi_note  # Store last note played
-
-    except ValueError:
-        continue
-    except KeyboardInterrupt:
-        print("Exiting...")
-        fs.delete()
-        break
+print("Played a note successfully!")

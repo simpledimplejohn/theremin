@@ -21,6 +21,7 @@ Build a theremin for playing at psyche night.
   - download .tar.xy file
 7. Install Sound File:
 wget -O /home/pi/theremin.sf2 https://musical-artifacts.com/artifacts/32/Synths.sf2
+8. sudo apt-get install fluidsynth libfluidsynth-dev
 
 ## RUNNING:
 1. activate virtual environments needed:

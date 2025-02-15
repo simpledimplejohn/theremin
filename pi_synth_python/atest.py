@@ -1,4 +1,5 @@
-import pyfluidsynth
-fs = pyfluidsynth.Synth()
+import fluidsynth
+
+fs = fluidsynth.Synth()
 fs.start()
 print("Fluidsynth initialized successfully")

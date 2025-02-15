@@ -1,7 +1,7 @@
 #include <CapacitiveSensor.h>
 
 // Define capacitive sensor for pitch (send: pin 4, receive: pin 2)
-CapacitiveSensor cs_4_2 = CapacitiveSensor(4, 2);
+CapacitiveSensor cs_12_8 = CapacitiveSensor(12, 8);
 
 const int volumePin = A0;  // Potentiometer for volume
 
@@ -10,7 +10,7 @@ void setup() {
 }
 
 void loop() {
-    long pitchValue = cs_4_2.capacitiveSensor(30); // Read pitch sensor
+    long pitchValue = cs_12_8.capacitiveSensor(30); // Read pitch sensor
     int volumeValue = analogRead(volumePin);       // Read potentiometer (0-1023)
 
     // Normalize pitch (adjusting sensitivity)
